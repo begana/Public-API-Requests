@@ -17,5 +17,5 @@ fetchData('https://randomuser.me/api/?results=12')
 //------------------------------------------
 
 const fetchPeople = ( data ) => {
-    
+    const people = data.map( person => console.log(person.name))
 }
