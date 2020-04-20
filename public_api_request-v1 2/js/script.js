@@ -22,10 +22,10 @@ const checkStatus = (response) => {
 
 
 Promise.all([ fetchData('https://randomuser.me/api/?results=12')])
-.then( data => {
-    const informations = data[0];
-    fetchGellary(informations.results)
-})
+    .then( data => {
+        const informations = data[0];
+        fetchGellary(informations.results)
+    })
 
     
 
