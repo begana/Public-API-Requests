@@ -16,13 +16,16 @@ const checkStatus = (response) => {
     if(response.ok){
         return Promise.resolve(response)
     } else {
-        return Promise.reject(response.statusText);
+        return Promise.reject( Error(response.statusText));
     }
 }
 
-fetchData('https://randomuser.me/api/?results=12')
-    .then( data => fetchGellary(data))
 
+Promise.all([ fetchData('https://randomuser.me/api/?results=12')])
+.then( data => {
+    const informations = data[0];
+    fetchGellary(informations.results)
+})
 
     
 
@@ -32,7 +35,7 @@ fetchData('https://randomuser.me/api/?results=12')
 
 const fetchGellary = (data) => {
     
-    const people = data.results.map( person => `
+    const people = data.map( person => `
         <div class="card">
             <div class="card-img-container">
                 <img class="card-img" src="${person.picture.large}" alt="profile picture">
@@ -44,13 +47,15 @@ const fetchGellary = (data) => {
             </div>
         </div>
     `).join('')
+    
     gellary.innerHTML = people;
     
 }
 
 /// I'm coding here right now 
-const fetchModals = () => {
-    const personalInfo = gellary.querySelector('.card');
+const fetchModals = (e) => {
+    console.log(e.target)
+    
     
 }
 
