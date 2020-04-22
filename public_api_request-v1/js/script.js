@@ -48,9 +48,9 @@ const fetchCards = (data) => {
    
 }
 
+
 //----------------------------------------------------
 // EVENT HANDLERS
 //----------------------------------------------------
 
-
-
+gellary.addEventListener('click', (e) => console.log(e.target))
