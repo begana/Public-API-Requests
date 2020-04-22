@@ -51,11 +51,11 @@ const fetchCards = (data) => {
 }
 
 const fetchModals = (data) => {
-    console.log(data);
+    console.log(data)
 }
 
 //----------------------------------------------------
 // EVENT HANDLERS
 //----------------------------------------------------
 
-gellary.addEventListener('click', (e) => console.log(e.target))
+gellary.addEventListener('click', fetchModals)
