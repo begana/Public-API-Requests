@@ -1,4 +1,7 @@
 const gellary = document.querySelector('#gallery');
+const body = document.querySelector('body');
+
+let personInfo;
 
 
 //----------------------------------------------------
@@ -22,7 +25,8 @@ const fetchData = (url) => {
 Promise.all([ fetchData('https://randomuser.me/api/?results=12') ])
     .then( data => {
         fetchCards(data[0].results)
-        
+        personInfo = data[0].results;
+        fetchModal();
     })
 
 //----------------------------------------------------
@@ -45,17 +49,45 @@ const fetchCards = (data) => {
     `).join('')
 
     gellary.innerHTML = employees;
+
     const cards = gellary.querySelectorAll('.card');
-    fetchModals(cards)
-   
+    for( let i = 0; i < cards.length; i ++ ){
+        cards[i].addEventListener('click', () => fetchModal(personInfo[i]) )
+    }
+
 }
 
-const fetchModals = (data) => {
+const fetchModal = async (data) => {
     console.log(data)
+    const modals = 
+    `<div class="modal-container">
+    <div class="modal">
+        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+        <div class="modal-info-container">
+            <img class="modal-img" src="${data.picture.large}" alt="profile picture">
+            <h3 id="name" class="modal-name cap">${data.name.first} ${data.name.last}</h3>
+            <p class="modal-text">${data.email}</p>
+            <p class="modal-text cap">${data.location.city}</p>
+            <hr>
+            <p class="modal-text">${data.cell}</p>
+            <p class="modal-text">${data.location.street.number} ${data.location.street.name}., ${data.location.country}, ${location.postcode}</p>
+            <p class="modal-text">Birthday: ${data.dob.date}</p>
+        </div>
+    </div>`
+
+    body.innerHTML = modals;
+
+    const modal = document.querySelector('.modal')
+    const closeButton = document.querySelector('#modal-close-btn');
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    })
 }
+
+
 
 //----------------------------------------------------
 // EVENT HANDLERS
 //----------------------------------------------------
 
-gellary.addEventListener('click', fetchModals)
+
