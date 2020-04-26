@@ -91,7 +91,7 @@ const generateCards = (data) => {
                     <p class="modal-text">
                     ${personInfo[i].location.street.number} ${personInfo[i].location.street.name}., ${personInfo[i].location.country} ${personInfo[i].location.postcode}
                     </p>
-                    <p class="modal-text">Birthday: ${personInfo[i].dob.date}</p>
+                    <p class="modal-text">Birthday: ${personInfo[i].dob.date.slice(0,10)}</p>
                 </div>
             </div>
             </div>`
