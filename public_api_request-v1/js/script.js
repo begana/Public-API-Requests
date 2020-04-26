@@ -1,3 +1,5 @@
+//global variables
+
 const gellary = document.querySelector('#gallery');
 const body = document.querySelector('body');
 
@@ -9,6 +11,9 @@ let personInfo;
 //----------------------------------------------------
 //  FETCH FUNCTIONS
 //----------------------------------------------------
+
+//check status and if it's ok resolve the promise and if it's not, reject.
+
 const checkStatus = ( response ) => {
     if( response.ok ){
         return Promise.resolve( response )
@@ -17,6 +22,9 @@ const checkStatus = ( response ) => {
     }
 }
 
+
+//function for fetching data 
+
 const fetchData = (url) => {
     return fetch(url)
             .then( checkStatus )
@@ -24,9 +32,13 @@ const fetchData = (url) => {
             .catch( err => console.log( err ))
 }
 
+
+// fetch data with given url and use the data to generate card 
+// and save the data to a global variable "personInfo" to use the data for generating modal
+
 Promise.all([ fetchData('https://randomuser.me/api/?results=12') ])
     .then( data => {
-        fetchCards(data[0].results)
+        generateCards(data[0].results)
         personInfo = data[0].results;
         
     })
@@ -35,7 +47,9 @@ Promise.all([ fetchData('https://randomuser.me/api/?results=12') ])
 // HELPING FUNCTIONS
 //----------------------------------------------------
 
-const fetchCards = (data) => {
+// generate cards to display random 12 users with given data by fetching above
+
+const generateCards = (data) => {
 
     const employees = data.map( employee => `
     <div class="card">
@@ -53,6 +67,12 @@ const fetchCards = (data) => {
     gellary.innerHTML = employees;
 
     const cards = gellary.querySelectorAll('.card');
+
+
+    // generate card modal by adding event handler on each cards
+    // when a card is clicked, a modal pops up
+    // when a card is clicked, get information object of certain index from "personInfo" variable
+    // and update information in the modal
 
     for( let i = 0; i < cards.length; i ++ ){
         cards[i].addEventListener('click', () => {
